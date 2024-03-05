@@ -9,7 +9,7 @@ public class QuestionSo : ScriptableObject
     [SerializeField]  string question = "Enter new question text here";
     [SerializeField] string[] answer=new string[4];
     [SerializeField] int correctAnswerIndex;
- public string GetQuestion()
+    public string GetQuestion()
     { return question; }
     public string GetAnswer(int index)
     {
