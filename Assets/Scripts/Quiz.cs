@@ -15,6 +15,40 @@ public class Quiz : MonoBehaviour
     [SerializeField] Sprite correctAnswerSprite;
     void Start()
     {
+        // DisplayQuestion();
+        GetNextQuestion();
+    }
+
+    
+    public void OnAnswerSelected(int index)
+    {
+        Image buttonImage;
+        if (index == question.GetCorrectAnswerIndex())
+        {
+            questionText.text = "Correct";
+            buttonImage = answerBottons[index].GetComponentInChildren<Image>();
+            buttonImage.sprite = correctAnswerSprite;
+        }
+        else
+        {
+            correctAnswerIndex=question.GetCorrectAnswerIndex();
+            string correctAnswer =question.GetAnswer(correctAnswerIndex);
+            questionText.text ="Sorry correct answer was: \n "+ correctAnswer;
+            buttonImage = answerBottons[correctAnswerIndex].GetComponent<Image>();
+            buttonImage.sprite = correctAnswerSprite;
+
+        }
+        SetButtonState(false);
+    }
+    void GetNextQuestion()
+    {
+        SetButtonState(true);
+        SetDefaultButtonSprites();
+        DisplayQuestion();
+    }
+
+    void DisplayQuestion()
+    {
         questionText.text = question.GetQuestion();
         for (int i = 0; i < answerBottons.Length; i++)
         {
@@ -22,20 +56,20 @@ public class Quiz : MonoBehaviour
             bottonText.text = question.GetAnswer(i);
         }
     }
-    public void OnAnswerSelected(int index)
+    void SetButtonState(bool state)
     {
-        if (index == question.GetCorrectAnswerIndex())
+        for(int i=0; i<answerBottons.Length; i++)
         {
-            questionText.text = "Correct";
-            Image buttonImage = answerBottons[index].GetComponentInChildren<Image>();
-            buttonImage.sprite = correctAnswerSprite;
+            Button button= answerBottons[i].GetComponent<Button>();
+            button.interactable = state;
         }
-        else
+    }
+    void SetDefaultButtonSprites()
+    {
+        for(int i=0; i < answerBottons.Length; i++)
         {
-            questionText.text = "Not correct";
-            Image buttonImage= answerBottons[index].GetComponentInChildren<Image>();
+            Image buttonImage = answerBottons[i].GetComponent<Image>();
             buttonImage.sprite = defaultAnswerSprite;
         }
     }
-    
 }
