@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Question 5
   m_EditorClassIdentifier: 
   question: Enter new question text here
+  answer:
+  - 2
+  - 3
+  - w
+  - q
+  correctAnswerIndex: 3
